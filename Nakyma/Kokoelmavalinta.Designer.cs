@@ -49,15 +49,18 @@
             this.listBoxKokoelmat.Name = "listBoxKokoelmat";
             this.listBoxKokoelmat.Size = new System.Drawing.Size(576, 409);
             this.listBoxKokoelmat.TabIndex = 0;
+            this.listBoxKokoelmat.SelectedIndexChanged += new System.EventHandler(this.listBoxKokoelmat_SelectedIndexChanged);
             // 
             // buttonAvaa
             // 
+            this.buttonAvaa.Enabled = false;
             this.buttonAvaa.Location = new System.Drawing.Point(3, 418);
             this.buttonAvaa.Name = "buttonAvaa";
             this.buttonAvaa.Size = new System.Drawing.Size(75, 23);
             this.buttonAvaa.TabIndex = 1;
             this.buttonAvaa.Text = "Avaa";
             this.buttonAvaa.UseVisualStyleBackColor = true;
+            this.buttonAvaa.Click += new System.EventHandler(this.buttonAvaa_Click);
             // 
             // buttonLuo
             // 
