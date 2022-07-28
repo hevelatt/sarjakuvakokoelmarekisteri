@@ -34,13 +34,30 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
 
         private void listBoxKokoelmat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rekisterihallinta.ValitseKokoelma(listBoxKokoelmat.SelectedItem as Kokoelma);
+            rekisterihallinta.ValitseKokoelma((Kokoelma)listBoxKokoelmat.SelectedItem);
         }
 
         private void buttonAvaa_Click(object sender, EventArgs e)
         {
             rekisterihallinta.AvaaKokoelma();
             Close();
+        }
+
+        private void textBoxNimi_TextChanged(object sender, EventArgs e)
+        {
+            buttonLuo.Enabled = !string.IsNullOrWhiteSpace(textBoxNimi.Text);
+        }
+
+        private void buttonLuo_Click(object sender, EventArgs e)
+        {
+            if (rekisterihallinta.LuoKokoelma(textBoxNimi.Text))
+            {
+                NaytaKokoelmat();
+            }
+            else
+            {
+                MessageBox.Show("Kokoelman nimi on jo käytössä.", "Virhe");
+            }
         }
     }
 }

@@ -8,8 +8,13 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
 
         internal event EventHandler? KokoelmaValittu;
         internal event EventHandler? KokoelmaAvattu;
+
+        /// <summary>Kokoelma, jonka käyttäjä on valinnut.</summary>
         internal Kokoelma? ValittuKokoelma { get; private set; }
+
+        /// <summary>Kokoelma, jonka julkaisut on haettu.</summary>
         internal Kokoelma? AvattuKokoelma { get; private set; }
+
         internal List<Kokoelma> Kokoelmat { get; private set; }
         internal List<Julkaisu> Julkaisut { get; private set; }
         internal List<Sarja> Sarjat { get; private set; }
@@ -49,6 +54,16 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
 
             // Ilmoita kokoelman avaamisesta kuuntelijoille.
             KokoelmaAvattu?.Invoke(this, EventArgs.Empty);
+        }
+
+        internal bool LuoKokoelma(string nimi)
+        {
+            if (tietokantahallinta.LuoKokoelma(nimi))
+            {
+                Kokoelmat = tietokantahallinta.HaeKokoelmat();
+                return true;
+            }
+            return false;
         }
     }
 }

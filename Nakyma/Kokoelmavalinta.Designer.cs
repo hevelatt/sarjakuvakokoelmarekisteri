@@ -64,12 +64,14 @@
             // 
             // buttonLuo
             // 
+            this.buttonLuo.Enabled = false;
             this.buttonLuo.Location = new System.Drawing.Point(3, 32);
             this.buttonLuo.Name = "buttonLuo";
             this.buttonLuo.Size = new System.Drawing.Size(75, 23);
             this.buttonLuo.TabIndex = 2;
             this.buttonLuo.Text = "Luo";
             this.buttonLuo.UseVisualStyleBackColor = true;
+            this.buttonLuo.Click += new System.EventHandler(this.buttonLuo_Click);
             // 
             // textBoxNimi
             // 
@@ -77,6 +79,7 @@
             this.textBoxNimi.Name = "textBoxNimi";
             this.textBoxNimi.Size = new System.Drawing.Size(200, 23);
             this.textBoxNimi.TabIndex = 3;
+            this.textBoxNimi.TextChanged += new System.EventHandler(this.textBoxNimi_TextChanged);
             // 
             // tableLayoutPanelPohja
             // 

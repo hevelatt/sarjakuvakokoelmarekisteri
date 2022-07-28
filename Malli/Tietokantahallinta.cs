@@ -27,7 +27,8 @@ namespace Sarjakuvakokoelmarekisteri.Malli
                 try
                 {
                     yhteys.Open();
-                    SqlCommand kokoelmaHakukomento = new("SELECT KokoelmaID, KokoelmaNimi FROM Kokoelma", yhteys);
+                    SqlCommand kokoelmaHakukomento = new(
+                        "SELECT KokoelmaID, KokoelmaNimi FROM Kokoelma", yhteys);
                     SqlDataReader lukija = kokoelmaHakukomento.ExecuteReader();
                     while (lukija.Read())
                     {
@@ -66,6 +67,26 @@ namespace Sarjakuvakokoelmarekisteri.Malli
                 }
             }
             return julkaisut;
+        }
+
+        internal bool LuoKokoelma(string nimi)
+        {
+            using (SqlConnection yhteys = new(yhteysmerkkijono))
+            {
+                try
+                {
+                    yhteys.Open();
+                    SqlCommand kokoelmaLisayskomento = new(
+                        "INSERT INTO Kokoelma (KokoelmaNimi) VALUES ('" + nimi + "')", yhteys);
+                    kokoelmaLisayskomento.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
