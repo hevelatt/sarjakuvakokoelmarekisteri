@@ -277,12 +277,14 @@
             // buttonPoista
             // 
             this.buttonPoista.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonPoista.Enabled = false;
             this.buttonPoista.Location = new System.Drawing.Point(162, 3);
             this.buttonPoista.Name = "buttonPoista";
             this.buttonPoista.Size = new System.Drawing.Size(75, 23);
             this.buttonPoista.TabIndex = 1;
             this.buttonPoista.Text = "Poista";
             this.buttonPoista.UseVisualStyleBackColor = true;
+            this.buttonPoista.Click += new System.EventHandler(this.buttonPoista_Click);
             // 
             // tableLayoutPanelOhjaimet
             // 
@@ -341,11 +343,13 @@
             this.listViewJulkaisut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewJulkaisut.FullRowSelect = true;
             this.listViewJulkaisut.Location = new System.Drawing.Point(0, 0);
+            this.listViewJulkaisut.MultiSelect = false;
             this.listViewJulkaisut.Name = "listViewJulkaisut";
             this.listViewJulkaisut.Size = new System.Drawing.Size(523, 426);
             this.listViewJulkaisut.TabIndex = 0;
             this.listViewJulkaisut.UseCompatibleStateImageBehavior = false;
             this.listViewJulkaisut.View = System.Windows.Forms.View.Details;
+            this.listViewJulkaisut.SelectedIndexChanged += new System.EventHandler(this.listViewJulkaisut_SelectedIndexChanged);
             // 
             // columnHeaderNimi
             // 

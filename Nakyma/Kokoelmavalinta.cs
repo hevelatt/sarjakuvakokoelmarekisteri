@@ -34,7 +34,7 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
 
         private void listBoxKokoelmat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rekisterihallinta.ValitseKokoelma((Kokoelma)listBoxKokoelmat.SelectedItem);
+            rekisterihallinta.ValitseKokoelma((Kokoelma?)listBoxKokoelmat.SelectedItem);
         }
 
         private void buttonAvaa_Click(object sender, EventArgs e)

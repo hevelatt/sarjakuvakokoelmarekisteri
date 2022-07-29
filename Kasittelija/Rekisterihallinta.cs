@@ -8,12 +8,16 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
 
         internal event EventHandler? KokoelmaValittu;
         internal event EventHandler? KokoelmaAvattu;
+        internal event EventHandler? JulkaisuValittu;
 
         /// <summary>Kokoelma, jonka käyttäjä on valinnut.</summary>
         internal Kokoelma? ValittuKokoelma { get; private set; }
 
         /// <summary>Kokoelma, jonka julkaisut on haettu.</summary>
         internal Kokoelma? AvattuKokoelma { get; private set; }
+
+        /// <summary>Julkaisu, jonka käyttäjä on valinnut.</summary>
+        internal Julkaisu? ValittuJulkaisu { get; private set; }
 
         internal List<Kokoelma> Kokoelmat { get; private set; }
         internal List<Julkaisu> Julkaisut { get; private set; }
@@ -65,6 +69,18 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
                 return true;
             }
             return false;
+        }
+
+        internal void ValitseJulkaisu(Julkaisu? julkaisu)
+        {
+            ValittuJulkaisu = julkaisu;
+            JulkaisuValittu?.Invoke(this, EventArgs.Empty);
+        }
+
+        internal void PoistaJulkaisu(Julkaisu julkaisu)
+        {
+            tietokantahallinta.PoistaJulkaisu(julkaisu);
+            Julkaisut.Remove(julkaisu);
         }
     }
 }

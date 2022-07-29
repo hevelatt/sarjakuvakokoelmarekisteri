@@ -85,16 +85,17 @@ namespace Sarjakuvakokoelmarekisteri.Malli
                 {
                     yhteys.Open();
                     SqlCommand julkaisuHakukomento = new(
-                        "SELECT JulkaisuNimi, JulkaisuNumero, SarjaID, JulkaisuVuosi " +
+                        "SELECT JulkaisuID, JulkaisuNimi, JulkaisuNumero, SarjaID, JulkaisuVuosi " +
                         "FROM Julkaisu WHERE KokoelmaID = " + kokoelma.Id, yhteys);
                     SqlDataReader lukija = julkaisuHakukomento.ExecuteReader();
                     while (lukija.Read())
                     {
                         julkaisut.Add(new Julkaisu(
-                            LueNullViite<string>(lukija.GetValue(0)),
-                            LueNullArvo<short>(lukija.GetValue(1)),
-                            LueNullArvo<int>(lukija.GetValue(2)),
-                            LueNullArvo<short>(lukija.GetValue(3))));
+                            (int)lukija.GetValue(0),
+                            LueNullViite<string>(lukija.GetValue(1)),
+                            LueNullArvo<short>(lukija.GetValue(2)),
+                            LueNullArvo<int>(lukija.GetValue(3)),
+                            LueNullArvo<short>(lukija.GetValue(4))));
                     }
                 }
                 catch (Exception ex)
@@ -115,6 +116,26 @@ namespace Sarjakuvakokoelmarekisteri.Malli
                     SqlCommand kokoelmaLisayskomento = new(
                         "INSERT INTO Kokoelma (KokoelmaNimi) VALUES ('" + nimi + "')", yhteys);
                     kokoelmaLisayskomento.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        internal bool PoistaJulkaisu(Julkaisu julkaisu)
+        {
+            using (SqlConnection yhteys = new(yhteysmerkkijono))
+            {
+                try
+                {
+                    yhteys.Open();
+                    SqlCommand julkaisuPoistokomento = new(
+                        "DELETE FROM Julkaisu WHERE JulkaisuID = " + julkaisu.Id, yhteys);
+                    julkaisuPoistokomento.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
