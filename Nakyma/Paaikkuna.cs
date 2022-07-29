@@ -10,7 +10,8 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
 
         public Paaikkuna()
         {
-            rekisterihallinta.KokoelmaAvattu += rekisterihallinta_KokoelmaAvattu;
+            // Lisää kuuntelijat.
+            rekisterihallinta.KokoelmaAvattu += (_, __) => NaytaJulkaisut();
             rekisterihallinta.JulkaisuValittu += rekisterihallinta_JulkaisuValittu;
 
             InitializeComponent();
@@ -22,6 +23,7 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
             listViewJulkaisut.Items.Clear();
             foreach (var julkaisu in rekisterihallinta.Julkaisut)
             {
+                // Luo uusi lista-alkio jonka tunnisteena on julkaisuviiteolio.
                 listViewJulkaisut.Items.Add(new ListViewItem(new[]{
                     julkaisu.Nimi,
                     julkaisu.Numero.ToString(),
@@ -31,14 +33,9 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
             }
         }
 
-        private void rekisterihallinta_KokoelmaAvattu(object? sender, EventArgs e)
-        {
-            NaytaJulkaisut();
-            rekisterihallinta.ValitseJulkaisu(null);
-        }
-
         private void rekisterihallinta_JulkaisuValittu(object? sender, EventArgs e)
         {
+            // Ota painike käyttöön jos julkaisu on valittu.
             buttonPoista.Enabled = rekisterihallinta.ValittuJulkaisu != null;
         }
 
@@ -49,6 +46,7 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
 
         private void listViewJulkaisut_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Valitse valitun lista-alkion tunnisteena ollut julkaisu tai null jos poistetaan valinta.
             rekisterihallinta.ValitseJulkaisu(
                 listViewJulkaisut.SelectedItems.Count > 0 ?
                 (Julkaisu)listViewJulkaisut.SelectedItems[0].Tag : null);
@@ -56,12 +54,8 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
 
         private void buttonPoista_Click(object sender, EventArgs e)
         {
-            if (listViewJulkaisut.SelectedItems.Count > 0)
-            {
-                rekisterihallinta.PoistaJulkaisu((Julkaisu)listViewJulkaisut.SelectedItems[0].Tag);
-                NaytaJulkaisut();
-                rekisterihallinta.ValitseJulkaisu(null);
-            }
+            rekisterihallinta.PoistaJulkaisu();
+            NaytaJulkaisut();
         }
     }
 }

@@ -126,6 +126,27 @@ namespace Sarjakuvakokoelmarekisteri.Malli
             return true;
         }
 
+        internal bool PoistaKokoelma(Kokoelma kokoelma)
+        {
+            using (SqlConnection yhteys = new(yhteysmerkkijono))
+            {
+                try
+                {
+                    yhteys.Open();
+                    SqlCommand kokoelmaPoistokomento = new(
+                        "DELETE FROM Kokoelma WHERE KokoelmaID = " + kokoelma.Id +
+                        ";DELETE FROM Julkaisu WHERE KokoelmaID = " + kokoelma.Id, yhteys);
+                    kokoelmaPoistokomento.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            return true;
+        }
+
         internal bool PoistaJulkaisu(Julkaisu julkaisu)
         {
             using (SqlConnection yhteys = new(yhteysmerkkijono))

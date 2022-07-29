@@ -34,10 +34,13 @@
             this.textBoxNimi = new System.Windows.Forms.TextBox();
             this.tableLayoutPanelPohja = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelLuo = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanelAvaa = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelLista = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelListaOhjaimet = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonPoista = new System.Windows.Forms.Button();
             this.tableLayoutPanelPohja.SuspendLayout();
             this.tableLayoutPanelLuo.SuspendLayout();
-            this.tableLayoutPanelAvaa.SuspendLayout();
+            this.tableLayoutPanelLista.SuspendLayout();
+            this.tableLayoutPanelListaOhjaimet.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBoxKokoelmat
@@ -47,14 +50,14 @@
             this.listBoxKokoelmat.ItemHeight = 15;
             this.listBoxKokoelmat.Location = new System.Drawing.Point(3, 3);
             this.listBoxKokoelmat.Name = "listBoxKokoelmat";
-            this.listBoxKokoelmat.Size = new System.Drawing.Size(576, 409);
+            this.listBoxKokoelmat.Size = new System.Drawing.Size(576, 403);
             this.listBoxKokoelmat.TabIndex = 0;
             this.listBoxKokoelmat.SelectedIndexChanged += new System.EventHandler(this.listBoxKokoelmat_SelectedIndexChanged);
             // 
             // buttonAvaa
             // 
             this.buttonAvaa.Enabled = false;
-            this.buttonAvaa.Location = new System.Drawing.Point(3, 418);
+            this.buttonAvaa.Location = new System.Drawing.Point(3, 3);
             this.buttonAvaa.Name = "buttonAvaa";
             this.buttonAvaa.Size = new System.Drawing.Size(75, 23);
             this.buttonAvaa.TabIndex = 1;
@@ -87,7 +90,7 @@
             this.tableLayoutPanelPohja.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelPohja.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelPohja.Controls.Add(this.tableLayoutPanelLuo, 0, 0);
-            this.tableLayoutPanelPohja.Controls.Add(this.tableLayoutPanelAvaa, 1, 0);
+            this.tableLayoutPanelPohja.Controls.Add(this.tableLayoutPanelLista, 1, 0);
             this.tableLayoutPanelPohja.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelPohja.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelPohja.Name = "tableLayoutPanelPohja";
@@ -112,20 +115,47 @@
             this.tableLayoutPanelLuo.Size = new System.Drawing.Size(206, 444);
             this.tableLayoutPanelLuo.TabIndex = 0;
             // 
-            // tableLayoutPanelAvaa
+            // tableLayoutPanelLista
             // 
-            this.tableLayoutPanelAvaa.ColumnCount = 1;
-            this.tableLayoutPanelAvaa.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelAvaa.Controls.Add(this.listBoxKokoelmat, 0, 0);
-            this.tableLayoutPanelAvaa.Controls.Add(this.buttonAvaa, 0, 1);
-            this.tableLayoutPanelAvaa.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelAvaa.Location = new System.Drawing.Point(215, 3);
-            this.tableLayoutPanelAvaa.Name = "tableLayoutPanelAvaa";
-            this.tableLayoutPanelAvaa.RowCount = 2;
-            this.tableLayoutPanelAvaa.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelAvaa.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelAvaa.Size = new System.Drawing.Size(582, 444);
-            this.tableLayoutPanelAvaa.TabIndex = 1;
+            this.tableLayoutPanelLista.ColumnCount = 1;
+            this.tableLayoutPanelLista.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLista.Controls.Add(this.listBoxKokoelmat, 0, 0);
+            this.tableLayoutPanelLista.Controls.Add(this.tableLayoutPanelListaOhjaimet, 0, 1);
+            this.tableLayoutPanelLista.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelLista.Location = new System.Drawing.Point(215, 3);
+            this.tableLayoutPanelLista.Name = "tableLayoutPanelLista";
+            this.tableLayoutPanelLista.RowCount = 2;
+            this.tableLayoutPanelLista.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLista.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelLista.Size = new System.Drawing.Size(582, 444);
+            this.tableLayoutPanelLista.TabIndex = 1;
+            // 
+            // tableLayoutPanelListaOhjaimet
+            // 
+            this.tableLayoutPanelListaOhjaimet.AutoSize = true;
+            this.tableLayoutPanelListaOhjaimet.ColumnCount = 2;
+            this.tableLayoutPanelListaOhjaimet.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelListaOhjaimet.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelListaOhjaimet.Controls.Add(this.buttonAvaa, 0, 0);
+            this.tableLayoutPanelListaOhjaimet.Controls.Add(this.buttonPoista, 1, 0);
+            this.tableLayoutPanelListaOhjaimet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelListaOhjaimet.Location = new System.Drawing.Point(3, 412);
+            this.tableLayoutPanelListaOhjaimet.Name = "tableLayoutPanelListaOhjaimet";
+            this.tableLayoutPanelListaOhjaimet.RowCount = 1;
+            this.tableLayoutPanelListaOhjaimet.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelListaOhjaimet.Size = new System.Drawing.Size(576, 29);
+            this.tableLayoutPanelListaOhjaimet.TabIndex = 2;
+            // 
+            // buttonPoista
+            // 
+            this.buttonPoista.Enabled = false;
+            this.buttonPoista.Location = new System.Drawing.Point(84, 3);
+            this.buttonPoista.Name = "buttonPoista";
+            this.buttonPoista.Size = new System.Drawing.Size(75, 23);
+            this.buttonPoista.TabIndex = 2;
+            this.buttonPoista.Text = "Poista";
+            this.buttonPoista.UseVisualStyleBackColor = true;
+            this.buttonPoista.Click += new System.EventHandler(this.buttonPoista_Click);
             // 
             // Kokoelmavalinta
             // 
@@ -139,7 +169,9 @@
             this.tableLayoutPanelPohja.PerformLayout();
             this.tableLayoutPanelLuo.ResumeLayout(false);
             this.tableLayoutPanelLuo.PerformLayout();
-            this.tableLayoutPanelAvaa.ResumeLayout(false);
+            this.tableLayoutPanelLista.ResumeLayout(false);
+            this.tableLayoutPanelLista.PerformLayout();
+            this.tableLayoutPanelListaOhjaimet.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -152,6 +184,8 @@
         private TextBox textBoxNimi;
         private TableLayoutPanel tableLayoutPanelPohja;
         private TableLayoutPanel tableLayoutPanelLuo;
-        private TableLayoutPanel tableLayoutPanelAvaa;
+        private TableLayoutPanel tableLayoutPanelListaOhjaimet;
+        private Button buttonPoista;
+        private TableLayoutPanel tableLayoutPanelLista;
     }
 }

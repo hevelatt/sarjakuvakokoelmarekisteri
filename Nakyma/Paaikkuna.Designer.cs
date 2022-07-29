@@ -31,11 +31,6 @@
             this.menuStripPaavalikko = new System.Windows.Forms.MenuStrip();
             this.tiedostoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.avaaKokoelmaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBoxHaku = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanelHakuOhjaimet = new System.Windows.Forms.TableLayoutPanel();
-            this.textBoxHakusana = new System.Windows.Forms.TextBox();
-            this.comboBoxHakuehto = new System.Windows.Forms.ComboBox();
-            this.buttonHae = new System.Windows.Forms.Button();
             this.tableLayoutPanelTiedotKentat = new System.Windows.Forms.TableLayoutPanel();
             this.labelNimi = new System.Windows.Forms.Label();
             this.labelNumero = new System.Windows.Forms.Label();
@@ -57,8 +52,6 @@
             this.columnHeaderSarja = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderVuosi = new System.Windows.Forms.ColumnHeader();
             this.menuStripPaavalikko.SuspendLayout();
-            this.groupBoxHaku.SuspendLayout();
-            this.tableLayoutPanelHakuOhjaimet.SuspendLayout();
             this.tableLayoutPanelTiedotKentat.SuspendLayout();
             this.tableLayoutPanelJulkaisuOhjaimet.SuspendLayout();
             this.tableLayoutPanelOhjaimet.SuspendLayout();
@@ -93,62 +86,6 @@
             this.avaaKokoelmaToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.avaaKokoelmaToolStripMenuItem.Text = "Avaa kokoelma";
             this.avaaKokoelmaToolStripMenuItem.Click += new System.EventHandler(this.avaaKokoelmaToolStripMenuItem_Click);
-            // 
-            // groupBoxHaku
-            // 
-            this.groupBoxHaku.AutoSize = true;
-            this.groupBoxHaku.Controls.Add(this.tableLayoutPanelHakuOhjaimet);
-            this.groupBoxHaku.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxHaku.Location = new System.Drawing.Point(3, 3);
-            this.groupBoxHaku.Name = "groupBoxHaku";
-            this.groupBoxHaku.Size = new System.Drawing.Size(267, 109);
-            this.groupBoxHaku.TabIndex = 1;
-            this.groupBoxHaku.TabStop = false;
-            this.groupBoxHaku.Text = "Haku";
-            // 
-            // tableLayoutPanelHakuOhjaimet
-            // 
-            this.tableLayoutPanelHakuOhjaimet.AutoSize = true;
-            this.tableLayoutPanelHakuOhjaimet.ColumnCount = 1;
-            this.tableLayoutPanelHakuOhjaimet.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelHakuOhjaimet.Controls.Add(this.textBoxHakusana, 0, 0);
-            this.tableLayoutPanelHakuOhjaimet.Controls.Add(this.comboBoxHakuehto, 0, 1);
-            this.tableLayoutPanelHakuOhjaimet.Controls.Add(this.buttonHae, 0, 2);
-            this.tableLayoutPanelHakuOhjaimet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelHakuOhjaimet.Location = new System.Drawing.Point(3, 19);
-            this.tableLayoutPanelHakuOhjaimet.Name = "tableLayoutPanelHakuOhjaimet";
-            this.tableLayoutPanelHakuOhjaimet.RowCount = 3;
-            this.tableLayoutPanelHakuOhjaimet.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelHakuOhjaimet.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelHakuOhjaimet.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelHakuOhjaimet.Size = new System.Drawing.Size(261, 87);
-            this.tableLayoutPanelHakuOhjaimet.TabIndex = 0;
-            // 
-            // textBoxHakusana
-            // 
-            this.textBoxHakusana.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxHakusana.Location = new System.Drawing.Point(3, 3);
-            this.textBoxHakusana.Name = "textBoxHakusana";
-            this.textBoxHakusana.Size = new System.Drawing.Size(255, 23);
-            this.textBoxHakusana.TabIndex = 0;
-            // 
-            // comboBoxHakuehto
-            // 
-            this.comboBoxHakuehto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxHakuehto.FormattingEnabled = true;
-            this.comboBoxHakuehto.Location = new System.Drawing.Point(3, 32);
-            this.comboBoxHakuehto.Name = "comboBoxHakuehto";
-            this.comboBoxHakuehto.Size = new System.Drawing.Size(255, 23);
-            this.comboBoxHakuehto.TabIndex = 1;
-            // 
-            // buttonHae
-            // 
-            this.buttonHae.Location = new System.Drawing.Point(3, 61);
-            this.buttonHae.Name = "buttonHae";
-            this.buttonHae.Size = new System.Drawing.Size(75, 23);
-            this.buttonHae.TabIndex = 2;
-            this.buttonHae.Text = "Hae";
-            this.buttonHae.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanelTiedotKentat
             // 
@@ -257,11 +194,11 @@
             this.tableLayoutPanelJulkaisuOhjaimet.Controls.Add(this.buttonLisaa, 0, 0);
             this.tableLayoutPanelJulkaisuOhjaimet.Controls.Add(this.buttonPoista, 1, 0);
             this.tableLayoutPanelJulkaisuOhjaimet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelJulkaisuOhjaimet.Location = new System.Drawing.Point(3, 262);
+            this.tableLayoutPanelJulkaisuOhjaimet.Location = new System.Drawing.Point(3, 147);
             this.tableLayoutPanelJulkaisuOhjaimet.Name = "tableLayoutPanelJulkaisuOhjaimet";
             this.tableLayoutPanelJulkaisuOhjaimet.RowCount = 1;
             this.tableLayoutPanelJulkaisuOhjaimet.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelJulkaisuOhjaimet.Size = new System.Drawing.Size(267, 161);
+            this.tableLayoutPanelJulkaisuOhjaimet.Size = new System.Drawing.Size(267, 276);
             this.tableLayoutPanelJulkaisuOhjaimet.TabIndex = 3;
             // 
             // buttonLisaa
@@ -290,14 +227,12 @@
             // 
             this.tableLayoutPanelOhjaimet.ColumnCount = 1;
             this.tableLayoutPanelOhjaimet.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelOhjaimet.Controls.Add(this.groupBoxHaku, 0, 0);
-            this.tableLayoutPanelOhjaimet.Controls.Add(this.groupBoxTiedot, 0, 1);
-            this.tableLayoutPanelOhjaimet.Controls.Add(this.tableLayoutPanelJulkaisuOhjaimet, 0, 2);
+            this.tableLayoutPanelOhjaimet.Controls.Add(this.groupBoxTiedot, 0, 0);
+            this.tableLayoutPanelOhjaimet.Controls.Add(this.tableLayoutPanelJulkaisuOhjaimet, 0, 1);
             this.tableLayoutPanelOhjaimet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelOhjaimet.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelOhjaimet.Name = "tableLayoutPanelOhjaimet";
-            this.tableLayoutPanelOhjaimet.RowCount = 3;
-            this.tableLayoutPanelOhjaimet.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelOhjaimet.RowCount = 2;
             this.tableLayoutPanelOhjaimet.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelOhjaimet.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelOhjaimet.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -309,7 +244,7 @@
             this.groupBoxTiedot.AutoSize = true;
             this.groupBoxTiedot.Controls.Add(this.tableLayoutPanelTiedotKentat);
             this.groupBoxTiedot.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxTiedot.Location = new System.Drawing.Point(3, 118);
+            this.groupBoxTiedot.Location = new System.Drawing.Point(3, 3);
             this.groupBoxTiedot.Name = "groupBoxTiedot";
             this.groupBoxTiedot.Size = new System.Drawing.Size(267, 138);
             this.groupBoxTiedot.TabIndex = 3;
@@ -381,10 +316,6 @@
             this.Text = "Sarjakuvakokoelma";
             this.menuStripPaavalikko.ResumeLayout(false);
             this.menuStripPaavalikko.PerformLayout();
-            this.groupBoxHaku.ResumeLayout(false);
-            this.groupBoxHaku.PerformLayout();
-            this.tableLayoutPanelHakuOhjaimet.ResumeLayout(false);
-            this.tableLayoutPanelHakuOhjaimet.PerformLayout();
             this.tableLayoutPanelTiedotKentat.ResumeLayout(false);
             this.tableLayoutPanelTiedotKentat.PerformLayout();
             this.tableLayoutPanelJulkaisuOhjaimet.ResumeLayout(false);
@@ -405,11 +336,6 @@
 
         private MenuStrip menuStripPaavalikko;
         private ToolStripMenuItem tiedostoToolStripMenuItem;
-        private GroupBox groupBoxHaku;
-        private TableLayoutPanel tableLayoutPanelHakuOhjaimet;
-        private TextBox textBoxHakusana;
-        private ComboBox comboBoxHakuehto;
-        private Button buttonHae;
         private TableLayoutPanel tableLayoutPanelOhjaimet;
         private GroupBox groupBoxTiedot;
         private TableLayoutPanel tableLayoutPanelTiedotKentat;

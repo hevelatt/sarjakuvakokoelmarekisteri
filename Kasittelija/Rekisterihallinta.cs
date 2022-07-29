@@ -27,8 +27,7 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
         {
             Kokoelmat = tietokantahallinta.HaeKokoelmat();
             Sarjat = tietokantahallinta.HaeSarjat();
-
-            // Alustetaan julkaisut tyhjäksi listaksi.
+            // Alusta julkaisut tyhjäksi listaksi.
             Julkaisut = new List<Julkaisu>();
         }
 
@@ -43,19 +42,27 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
         /// <summary>Avaa valittu kokoelma.</summary>
         internal void AvaaKokoelma()
         {
-            // Jos valittu kokoelma on jo avattu, ei avata.
-            if (AvattuKokoelma == ValittuKokoelma) return;
+            AvaaKokoelma(ValittuKokoelma);
+        }
 
-            if (ValittuKokoelma == null)
+        /// <summary>Avaa kokoelma ja hae sen julkaisut.</summary>
+        internal void AvaaKokoelma(Kokoelma? kokoelma)
+        {
+            if (AvattuKokoelma == kokoelma) return;
+
+            // Hae avattavan kokoelman julkaisut.
+            if (kokoelma == null)
             {
                 Julkaisut.Clear();
-            } 
+            }
             else
             {
-                Julkaisut = tietokantahallinta.HaeJulkaisut(ValittuKokoelma);
+                Julkaisut = tietokantahallinta.HaeJulkaisut(kokoelma);
             }
-            
-            AvattuKokoelma = ValittuKokoelma;
+            // Nollaa julkaisuvalinta.
+            ValitseJulkaisu(null);
+
+            AvattuKokoelma = kokoelma;
 
             // Ilmoita kokoelman avaamisesta kuuntelijoille.
             KokoelmaAvattu?.Invoke(this, EventArgs.Empty);
@@ -63,6 +70,7 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
 
         internal bool LuoKokoelma(string nimi)
         {
+            // Hae kokoelmat jos kokoelman luonti onnistuu.
             if (tietokantahallinta.LuoKokoelma(nimi))
             {
                 Kokoelmat = tietokantahallinta.HaeKokoelmat();
@@ -71,15 +79,55 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
             return false;
         }
 
+        /// <summary>Poista valittu kokoelma.</summary>
+        internal void PoistaKokoelma()
+        {
+            if (ValittuKokoelma != null)
+            {
+                PoistaKokoelma(ValittuKokoelma);
+                // Valitse tyhjä kokoelma kun valittu kokoelma on poistettu.
+                ValitseKokoelma(null);
+            }
+        }
+
+        internal void PoistaKokoelma(Kokoelma kokoelma)
+        {
+            // Poista tietokannasta.
+            tietokantahallinta.PoistaKokoelma(kokoelma);
+            // Poista haetuista kokoelmista.
+            Kokoelmat.Remove(kokoelma);
+
+            // Jos poistettiin avattu kokoelma, avaa tyhjä kokoelma.
+            if (kokoelma == AvattuKokoelma)
+            {
+                AvaaKokoelma(null);
+            }
+        }
+
         internal void ValitseJulkaisu(Julkaisu? julkaisu)
         {
             ValittuJulkaisu = julkaisu;
+
+            // Ilmoita julkaisun valitsemisesta kuuntelijoille.
             JulkaisuValittu?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>Poista valittu julkaisu.</summary>
+        internal void PoistaJulkaisu()
+        {
+            if (ValittuJulkaisu != null)
+            {
+                PoistaJulkaisu(ValittuJulkaisu);
+                // Valitse tyhjä julkaisu kun valittu julkaisu on poistettu.
+                ValitseJulkaisu(null);
+            }
         }
 
         internal void PoistaJulkaisu(Julkaisu julkaisu)
         {
+            // Poista tietokannasta.
             tietokantahallinta.PoistaJulkaisu(julkaisu);
+            // Poista haetuista julkaisuista.
             Julkaisut.Remove(julkaisu);
         }
     }

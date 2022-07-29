@@ -10,7 +10,7 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
         internal Kokoelmavalinta(Rekisterihallinta rekisterihallinta)
         {
             this.rekisterihallinta = rekisterihallinta;
-            // Kuuntele kokoelman valitsemista.
+            // Lisää kuuntelija kokoelman valitsemiselle.
             this.rekisterihallinta.KokoelmaValittu += rekisterihallinta_KokoelmaValittu;
 
             InitializeComponent();
@@ -20,27 +20,18 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
         private void NaytaKokoelmat()
         {
             listBoxKokoelmat.Items.Clear();
-            foreach (var kokoelma in rekisterihallinta.Kokoelmat)
-            {
-                listBoxKokoelmat.Items.Add(kokoelma);
-            }
+            listBoxKokoelmat.Items.AddRange(rekisterihallinta.Kokoelmat.ToArray());
         }
 
         private void rekisterihallinta_KokoelmaValittu(object? sender, EventArgs e)
         {
-            // Jos valittu kokoelma on eri kuin null, salli painikkeen käyttö.
-            buttonAvaa.Enabled = rekisterihallinta.ValittuKokoelma != null;
+            // Ota painikkeet käyttöön kun kokoelma on valittu.
+            buttonPoista.Enabled = buttonAvaa.Enabled = rekisterihallinta.ValittuKokoelma != null;
         }
 
         private void listBoxKokoelmat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rekisterihallinta.ValitseKokoelma((Kokoelma?)listBoxKokoelmat.SelectedItem);
-        }
-
-        private void buttonAvaa_Click(object sender, EventArgs e)
-        {
-            rekisterihallinta.AvaaKokoelma();
-            Close();
+            rekisterihallinta.ValitseKokoelma((Kokoelma)listBoxKokoelmat.SelectedItem);
         }
 
         private void textBoxNimi_TextChanged(object sender, EventArgs e)
@@ -58,6 +49,18 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
             {
                 MessageBox.Show("Kokoelman nimi on jo käytössä.", "Virhe");
             }
+        }
+
+        private void buttonAvaa_Click(object sender, EventArgs e)
+        {
+            rekisterihallinta.AvaaKokoelma();
+            Close();
+        }
+
+        private void buttonPoista_Click(object sender, EventArgs e)
+        {
+            rekisterihallinta.PoistaKokoelma();
+            NaytaKokoelmat();
         }
     }
 }
