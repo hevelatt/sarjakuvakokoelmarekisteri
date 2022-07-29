@@ -11,7 +11,7 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
         {
             this.rekisterihallinta = rekisterihallinta;
             // Kuuntele kokoelman valitsemista.
-            this.rekisterihallinta.KokoelmaValittu += rekisterihallinta_kokoelmaValittu;
+            this.rekisterihallinta.KokoelmaValittu += rekisterihallinta_KokoelmaValittu;
 
             InitializeComponent();
             NaytaKokoelmat();
@@ -26,7 +26,7 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
             }
         }
 
-        private void rekisterihallinta_kokoelmaValittu(object? sender, EventArgs e)
+        private void rekisterihallinta_KokoelmaValittu(object? sender, EventArgs e)
         {
             // Jos valittu kokoelma on eri kuin null, salli painikkeen käyttö.
             buttonAvaa.Enabled = rekisterihallinta.ValittuKokoelma != null;

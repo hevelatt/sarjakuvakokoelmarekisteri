@@ -17,14 +17,15 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
 
         internal List<Kokoelma> Kokoelmat { get; private set; }
         internal List<Julkaisu> Julkaisut { get; private set; }
-        internal List<Sarja> Sarjat { get; private set; }
+        internal Dictionary<int, string> Sarjat { get; private set; }
 
         internal Rekisterihallinta()
         {
             Kokoelmat = tietokantahallinta.HaeKokoelmat();
+            Sarjat = tietokantahallinta.HaeSarjat();
+
             // Alustetaan julkaisut tyhjäksi listaksi.
             Julkaisut = new List<Julkaisu>();
-            Sarjat = new List<Sarja>();
         }
 
         internal void ValitseKokoelma(Kokoelma? kokoelma)

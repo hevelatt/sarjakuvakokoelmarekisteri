@@ -6,6 +6,15 @@ namespace Sarjakuvakokoelmarekisteri.Malli
     {
         private readonly string yhteysmerkkijono;
 
+        private static T? LueNullArvo<T>(Object dbArvo) where T : struct 
+        {
+            return DBNull.Value.Equals(dbArvo) ? null : (T)dbArvo; 
+        }
+        private static T? LueNullViite<T>(Object dbArvo) where T : class
+        {
+            return DBNull.Value.Equals(dbArvo) ? null : (T)dbArvo;
+        }
+
         internal Tietokantahallinta()
         {
             yhteysmerkkijono =
@@ -43,6 +52,30 @@ namespace Sarjakuvakokoelmarekisteri.Malli
             return kokoelmat;
         }
 
+        internal Dictionary<int, string> HaeSarjat()
+        {
+            Dictionary<int, string> sarjat = new();
+            using (SqlConnection yhteys = new(yhteysmerkkijono))
+            {
+                try
+                {
+                    yhteys.Open();
+                    SqlCommand sarjaHakukomento = new(
+                        "SELECT SarjaID, SarjaNimi FROM Sarja", yhteys);
+                    SqlDataReader lukija = sarjaHakukomento.ExecuteReader();
+                    while (lukija.Read())
+                    {
+                        sarjat[(int)lukija.GetValue(0)] = lukija.GetString(1);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+            return sarjat;
+        }
+
         internal List<Julkaisu> HaeJulkaisut(Kokoelma kokoelma)
         {
             List<Julkaisu> julkaisut = new();
@@ -52,13 +85,16 @@ namespace Sarjakuvakokoelmarekisteri.Malli
                 {
                     yhteys.Open();
                     SqlCommand julkaisuHakukomento = new(
-                        "SELECT JulkaisuNimi, JulkaisuNumero, SarjaNimi, JulkaisuVuosi" +
-                        "FROM Julkaisu LEFT JOIN Sarja ON Julkaisu.SarjaID = Sarja.SarjaID" +
-                        "WHERE KokoelmaID = " + kokoelma.Id, yhteys);
+                        "SELECT JulkaisuNimi, JulkaisuNumero, SarjaID, JulkaisuVuosi " +
+                        "FROM Julkaisu WHERE KokoelmaID = " + kokoelma.Id, yhteys);
                     SqlDataReader lukija = julkaisuHakukomento.ExecuteReader();
                     while (lukija.Read())
                     {
-                        //julkaisut.Add();
+                        julkaisut.Add(new Julkaisu(
+                            LueNullViite<string>(lukija.GetValue(0)),
+                            LueNullArvo<short>(lukija.GetValue(1)),
+                            LueNullArvo<int>(lukija.GetValue(2)),
+                            LueNullArvo<short>(lukija.GetValue(3))));
                     }
                 }
                 catch (Exception ex)

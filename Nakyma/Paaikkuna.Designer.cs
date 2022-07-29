@@ -30,6 +30,7 @@
         {
             this.menuStripPaavalikko = new System.Windows.Forms.MenuStrip();
             this.tiedostoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.avaaKokoelmaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxHaku = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanelHakuOhjaimet = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxHakusana = new System.Windows.Forms.TextBox();
@@ -49,9 +50,12 @@
             this.buttonPoista = new System.Windows.Forms.Button();
             this.tableLayoutPanelOhjaimet = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxTiedot = new System.Windows.Forms.GroupBox();
-            this.listBoxJulkaisut = new System.Windows.Forms.ListBox();
             this.splitContainerPohja = new System.Windows.Forms.SplitContainer();
-            this.avaaKokoelmaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listViewJulkaisut = new System.Windows.Forms.ListView();
+            this.columnHeaderNimi = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderNumero = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderSarja = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderVuosi = new System.Windows.Forms.ColumnHeader();
             this.menuStripPaavalikko.SuspendLayout();
             this.groupBoxHaku.SuspendLayout();
             this.tableLayoutPanelHakuOhjaimet.SuspendLayout();
@@ -82,6 +86,13 @@
             this.tiedostoToolStripMenuItem.Name = "tiedostoToolStripMenuItem";
             this.tiedostoToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.tiedostoToolStripMenuItem.Text = "Tiedosto";
+            // 
+            // avaaKokoelmaToolStripMenuItem
+            // 
+            this.avaaKokoelmaToolStripMenuItem.Name = "avaaKokoelmaToolStripMenuItem";
+            this.avaaKokoelmaToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.avaaKokoelmaToolStripMenuItem.Text = "Avaa kokoelma";
+            this.avaaKokoelmaToolStripMenuItem.Click += new System.EventHandler(this.avaaKokoelmaToolStripMenuItem_Click);
             // 
             // groupBoxHaku
             // 
@@ -303,16 +314,6 @@
             this.groupBoxTiedot.TabStop = false;
             this.groupBoxTiedot.Text = "Julkaisun tiedot";
             // 
-            // listBoxJulkaisut
-            // 
-            this.listBoxJulkaisut.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxJulkaisut.FormattingEnabled = true;
-            this.listBoxJulkaisut.ItemHeight = 15;
-            this.listBoxJulkaisut.Location = new System.Drawing.Point(0, 0);
-            this.listBoxJulkaisut.Name = "listBoxJulkaisut";
-            this.listBoxJulkaisut.Size = new System.Drawing.Size(523, 426);
-            this.listBoxJulkaisut.TabIndex = 5;
-            // 
             // splitContainerPohja
             // 
             this.splitContainerPohja.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -325,17 +326,44 @@
             // 
             // splitContainerPohja.Panel2
             // 
-            this.splitContainerPohja.Panel2.Controls.Add(this.listBoxJulkaisut);
+            this.splitContainerPohja.Panel2.Controls.Add(this.listViewJulkaisut);
             this.splitContainerPohja.Size = new System.Drawing.Size(800, 426);
             this.splitContainerPohja.SplitterDistance = 273;
             this.splitContainerPohja.TabIndex = 3;
             // 
-            // avaaKokoelmaToolStripMenuItem
+            // listViewJulkaisut
             // 
-            this.avaaKokoelmaToolStripMenuItem.Name = "avaaKokoelmaToolStripMenuItem";
-            this.avaaKokoelmaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.avaaKokoelmaToolStripMenuItem.Text = "Avaa kokoelma";
-            this.avaaKokoelmaToolStripMenuItem.Click += new System.EventHandler(this.avaaKokoelmaToolStripMenuItem_Click);
+            this.listViewJulkaisut.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderNimi,
+            this.columnHeaderNumero,
+            this.columnHeaderSarja,
+            this.columnHeaderVuosi});
+            this.listViewJulkaisut.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewJulkaisut.FullRowSelect = true;
+            this.listViewJulkaisut.Location = new System.Drawing.Point(0, 0);
+            this.listViewJulkaisut.Name = "listViewJulkaisut";
+            this.listViewJulkaisut.Size = new System.Drawing.Size(523, 426);
+            this.listViewJulkaisut.TabIndex = 0;
+            this.listViewJulkaisut.UseCompatibleStateImageBehavior = false;
+            this.listViewJulkaisut.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeaderNimi
+            // 
+            this.columnHeaderNimi.Text = "Nimi";
+            this.columnHeaderNimi.Width = 240;
+            // 
+            // columnHeaderNumero
+            // 
+            this.columnHeaderNumero.Text = "Numero";
+            // 
+            // columnHeaderSarja
+            // 
+            this.columnHeaderSarja.Text = "Sarja";
+            this.columnHeaderSarja.Width = 150;
+            // 
+            // columnHeaderVuosi
+            // 
+            this.columnHeaderVuosi.Text = "Vuosi";
             // 
             // Paaikkuna
             // 
@@ -391,9 +419,13 @@
         private TableLayoutPanel tableLayoutPanelJulkaisuOhjaimet;
         private Button buttonLisaa;
         private Button buttonPoista;
-        private ListBox listBoxJulkaisut;
         private SplitContainer splitContainerPohja;
         private ComboBox comboBoxSarja;
         private ToolStripMenuItem avaaKokoelmaToolStripMenuItem;
+        private ListView listViewJulkaisut;
+        private ColumnHeader columnHeaderNimi;
+        private ColumnHeader columnHeaderNumero;
+        private ColumnHeader columnHeaderSarja;
+        private ColumnHeader columnHeaderVuosi;
     }
 }
