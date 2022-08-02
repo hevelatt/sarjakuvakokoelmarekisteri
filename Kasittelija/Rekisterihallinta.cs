@@ -112,6 +112,46 @@ namespace Sarjakuvakokoelmarekisteri.Kasittelija
             JulkaisuValittu?.Invoke(this, EventArgs.Empty);
         }
 
+        internal void LisaaJulkaisu(string nimi, string numero, string sarja, string vuosi)
+        {
+            // Etsi sarjaa vastaava sarja-id.
+            int? sarjaId;
+            // Julkaisuun ei liity sarjaa.
+            if (string.IsNullOrWhiteSpace(sarja))
+            {
+                sarjaId = null;
+            }
+            // Sarja on jo olemassa.
+            else if (Sarjat.ContainsValue(sarja))
+            {
+                sarjaId = Sarjat.First(idNimi => idNimi.Value == sarja).Key;
+            }
+            // Luo uusi sarja.
+            else
+            {
+                // Lisää sarja tietokantaan.
+                tietokantahallinta.LisaaSarja(sarja);
+                // Hae sarjat tietokannasta, jotta saadaan selville oikea id.
+                Sarjat = tietokantahallinta.HaeSarjat();
+                // Selvitä tietokantaan juuri lisätyn sarjan id.
+                sarjaId = Sarjat.First(idNimi => idNimi.Value == sarja).Key;
+            }
+
+            // Tulkitse luku null-arvoksi jos sen parsiminen ei onnistu.
+            int? LueLukuTaiNull(string merkkijono) => int.TryParse(merkkijono, out int luku) ? luku : null;
+
+            if (tietokantahallinta.LisaaJulkaisu(
+                string.IsNullOrEmpty(nimi) ? null : nimi,
+                LueLukuTaiNull(numero),
+                sarjaId,
+                LueLukuTaiNull(vuosi), 
+                AvattuKokoelma!.Id))
+            {
+                // Päivitä julkaisulista jos julkaisun lisääminen tietokantaan onnistui.
+                Julkaisut = tietokantahallinta.HaeJulkaisut(AvattuKokoelma);
+            }
+        }
+
         /// <summary>Poista valittu julkaisu.</summary>
         internal void PoistaJulkaisu()
         {

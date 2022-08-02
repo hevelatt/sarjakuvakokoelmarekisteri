@@ -204,12 +204,14 @@
             // buttonLisaa
             // 
             this.buttonLisaa.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonLisaa.Enabled = false;
             this.buttonLisaa.Location = new System.Drawing.Point(29, 3);
             this.buttonLisaa.Name = "buttonLisaa";
             this.buttonLisaa.Size = new System.Drawing.Size(75, 23);
             this.buttonLisaa.TabIndex = 0;
             this.buttonLisaa.Text = "Lisää julkaisu";
             this.buttonLisaa.UseVisualStyleBackColor = true;
+            this.buttonLisaa.Click += new System.EventHandler(this.buttonLisaa_Click);
             // 
             // buttonPoista
             // 

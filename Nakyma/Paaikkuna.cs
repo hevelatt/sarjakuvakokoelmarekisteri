@@ -11,11 +11,15 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
         public Paaikkuna()
         {
             // Lisää kuuntelijat.
-            rekisterihallinta.KokoelmaAvattu += (_, __) => NaytaJulkaisut();
+            rekisterihallinta.KokoelmaAvattu += rekisterihallinta_KokoelmaValittu;
             rekisterihallinta.JulkaisuValittu += rekisterihallinta_JulkaisuValittu;
 
             InitializeComponent();
             kokoelmavalinta = new Kokoelmavalinta(rekisterihallinta);
+
+            NaytaSarjat();
+            // Näytä aluksi kokoelmavalinta.
+            kokoelmavalinta.ShowDialog();
         }
 
         private void NaytaJulkaisut()
@@ -23,7 +27,7 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
             listViewJulkaisut.Items.Clear();
             foreach (var julkaisu in rekisterihallinta.Julkaisut)
             {
-                // Luo uusi lista-alkio jonka tunnisteena on julkaisuviiteolio.
+                // Luo uusi lista-alkio jonka tunnisteena (Tag) on julkaisuviiteolio.
                 listViewJulkaisut.Items.Add(new ListViewItem(new[]{
                     julkaisu.Nimi,
                     julkaisu.Numero.ToString(),
@@ -31,6 +35,19 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
                     julkaisu.Vuosi.ToString()
                 }){ BackColor = Color.WhiteSmoke, Tag = julkaisu });
             }
+        }
+
+        private void NaytaSarjat()
+        {
+            comboBoxSarja.Items.Clear();
+            comboBoxSarja.Items.AddRange(rekisterihallinta.Sarjat.Values.ToArray());
+        }
+
+        private void rekisterihallinta_KokoelmaValittu(object? sender, EventArgs e)
+        {
+            NaytaJulkaisut();
+            // Ota painike käyttöön jos kokoelma on valittu.
+            buttonLisaa.Enabled = rekisterihallinta.ValittuKokoelma != null;
         }
 
         private void rekisterihallinta_JulkaisuValittu(object? sender, EventArgs e)
@@ -55,6 +72,14 @@ namespace Sarjakuvakokoelmarekisteri.Nakyma
         private void buttonPoista_Click(object sender, EventArgs e)
         {
             rekisterihallinta.PoistaJulkaisu();
+            NaytaJulkaisut();
+        }
+
+        private void buttonLisaa_Click(object sender, EventArgs e)
+        {
+            rekisterihallinta.LisaaJulkaisu(
+                textBoxNimi.Text, textBoxNumero.Text, comboBoxSarja.Text, textBoxVuosi.Text);
+            NaytaSarjat();
             NaytaJulkaisut();
         }
     }

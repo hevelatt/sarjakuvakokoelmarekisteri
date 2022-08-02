@@ -6,10 +6,17 @@ namespace Sarjakuvakokoelmarekisteri.Malli
     {
         private readonly string yhteysmerkkijono;
 
+        /// <summary>
+        /// Lue tietokannan kentän arvo ja palauta arvo tyyppiä T tai null jos kentän arvo on NULL.
+        /// </summary>
         private static T? LueNullArvo<T>(Object dbArvo) where T : struct 
         {
             return DBNull.Value.Equals(dbArvo) ? null : (T)dbArvo; 
         }
+
+        /// <summary>
+        /// Lue tietokannan kentän arvo ja palauta viitearvo tyyppiä T tai null jos kentän arvo on NULL.
+        /// </summary>
         private static T? LueNullViite<T>(Object dbArvo) where T : class
         {
             return DBNull.Value.Equals(dbArvo) ? null : (T)dbArvo;
@@ -52,6 +59,47 @@ namespace Sarjakuvakokoelmarekisteri.Malli
             return kokoelmat;
         }
 
+        internal bool LuoKokoelma(string nimi)
+        {
+            using (SqlConnection yhteys = new(yhteysmerkkijono))
+            {
+                try
+                {
+                    yhteys.Open();
+                    SqlCommand kokoelmaLisayskomento = new(
+                        "INSERT INTO Kokoelma (KokoelmaNimi) VALUES ('" + nimi + "')", yhteys);
+                    kokoelmaLisayskomento.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        internal bool PoistaKokoelma(Kokoelma kokoelma)
+        {
+            using (SqlConnection yhteys = new(yhteysmerkkijono))
+            {
+                try
+                {
+                    yhteys.Open();
+                    SqlCommand kokoelmaPoistokomento = new(
+                        "DELETE FROM Kokoelma WHERE KokoelmaID = " + kokoelma.Id +
+                        ";DELETE FROM Julkaisu WHERE KokoelmaID = " + kokoelma.Id, yhteys);
+                    kokoelmaPoistokomento.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            return true;
+        }
+
         internal Dictionary<int, string> HaeSarjat()
         {
             Dictionary<int, string> sarjat = new();
@@ -74,6 +122,26 @@ namespace Sarjakuvakokoelmarekisteri.Malli
                 }
             }
             return sarjat;
+        }
+
+        internal bool LisaaSarja(string nimi)
+        {
+            using (SqlConnection yhteys = new(yhteysmerkkijono))
+            {
+                try
+                {
+                    yhteys.Open();
+                    SqlCommand sarjanLisayskomento = new(
+                        "INSERT INTO Sarja (SarjaNimi) VALUES ('" + nimi + "')", yhteys);
+                    sarjanLisayskomento.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            return true;
         }
 
         internal List<Julkaisu> HaeJulkaisut(Kokoelma kokoelma)
@@ -106,37 +174,21 @@ namespace Sarjakuvakokoelmarekisteri.Malli
             return julkaisut;
         }
 
-        internal bool LuoKokoelma(string nimi)
+        internal bool LisaaJulkaisu(string? nimi, int? numero, int? sarjaId, int? vuosi, int kokoelmaId)
         {
             using (SqlConnection yhteys = new(yhteysmerkkijono))
             {
                 try
                 {
                     yhteys.Open();
-                    SqlCommand kokoelmaLisayskomento = new(
-                        "INSERT INTO Kokoelma (KokoelmaNimi) VALUES ('" + nimi + "')", yhteys);
-                    kokoelmaLisayskomento.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        internal bool PoistaKokoelma(Kokoelma kokoelma)
-        {
-            using (SqlConnection yhteys = new(yhteysmerkkijono))
-            {
-                try
-                {
-                    yhteys.Open();
-                    SqlCommand kokoelmaPoistokomento = new(
-                        "DELETE FROM Kokoelma WHERE KokoelmaID = " + kokoelma.Id +
-                        ";DELETE FROM Julkaisu WHERE KokoelmaID = " + kokoelma.Id, yhteys);
-                    kokoelmaPoistokomento.ExecuteNonQuery();
+                    SqlCommand julkaisuLisayskomento = new(
+                        "INSERT INTO Julkaisu (JulkaisuNimi, JulkaisuNumero, SarjaID, JulkaisuVuosi, KokoelmaID) VALUES (" +
+                        (nimi == null ? "NULL" : "'" + nimi + "'") + ", " +
+                        (numero == null ? "NULL" : numero) + ", " +
+                        (sarjaId == null ? "NULL" : sarjaId) + ", " +
+                        (vuosi == null ? "NULL" : vuosi) + ", " + 
+                        kokoelmaId + ")", yhteys);
+                    julkaisuLisayskomento.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
